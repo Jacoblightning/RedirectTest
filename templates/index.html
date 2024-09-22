@@ -2,19 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>RedirectTest Home</title>
+    {% if infinite %}
+        <title>RedirectTest Home</title>
+    {% else %}
+        <title>RedirectTest Infinite</title>
+    {% endif %}
 </head>
 <body>
-<h1>Welcome</h1>
-<h3>Trying to work with redirects but cant find a site using the one you need? Look no further. This site provides:</h3>
+
+{% if infinite %}
+    <h3><a href="{{ url_for('index') }}">Home</a> </h3>
+    <h2>We support these infinite redirects (they will redirect to themselves):</h2>
+{% else %}
+    <h1>Welcome</h1>
+    <h3>Trying to work with redirects but cant find a site using the one you need? Look no further. This site provides:</h3>
+{% endif %}
 <ul>
-    <li><a href="/meta">Meta Redirects</a></li>
-    <li><a href="/java">Javascript Redirects</a></li>
-    <li><a href="/code/301">301 Redirects</a></li>
-    <li><a href="/code/302">302 Redirects</a></li>
-    <li><a href="/code/303">303 Redirect</a></li>
-    <li><a href="/code/307">307 Redirect</a></li>
-    <li><a href="/code/308">308 Redirects</a></li>
+    <li><a href="{{ url_for('meta', inf=infinite) }}">Meta Redirects</a></li>
+    <li><a href="{{ url_for('javascript', inf=infinite) }}">Javascript Redirects</a></li>
+    <li><a href="{{ url_for('doCode', code=301, inf=infinite) }}">301 Redirects</a></li>
+    <li><a href="{{ url_for('doCode', code=302, inf=infinite) }}">302 Redirects</a></li>
+    <li><a href="{{ url_for('doCode', code=303, inf=infinite) }}">303 Redirect</a></li>
+    <li><a href="{{ url_for('doCode', code=307, inf=infinite) }}">307 Redirect</a></li>
+    <li><a href="{{ url_for('doCode', code=308, inf=infinite) }}">308 Redirects</a></li>
 </ul>
+
+{% if not infinite %}
+We also have <a href="{{ url_for('infinite') }}">Infinite Redirects</a>
+{% endif %}
+
+{% include "footer.html" %}
+
 </body>
 </html>

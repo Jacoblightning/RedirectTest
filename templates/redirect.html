@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Redirecting...</title>
     {% if usemeta %}
-    	<meta http-equiv="refresh" content="0; url={{ url_for('redirected', redirect='meta') }}" />
+    	<meta http-equiv="refresh" content="0; url={% if inf %}{{ url_for('meta', inf=1) }}{% else %}{{ url_for('redirected', redirect="meta") }}{% endif %}" />
     {% endif %}
     {% if usejavascript %}
     	<script>
-            window.location = "{{ url_for('redirected', redirect="javascript") }}"
+            window.location = "{% if inf %}{{ url_for('javascript', inf=1) }}{% else %}{{ url_for('redirected', redirect="javascript") }}{% endif %}"
         </script>
     {% endif %}
 </head>
